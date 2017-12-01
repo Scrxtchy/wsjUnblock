@@ -1,4 +1,3 @@
-
 // new http header parameters to override
 var newHeader = {
 	referer: {
@@ -21,43 +20,42 @@ var sites = {
 		js: [
 			"*://*.washingtonpost.com/*pwapi/*.js*", // this one causes paywall/ad-wall lightbox for every article
 			"*://*.washingtonpost.com/*drawbridge/drawbridge.js?_*", // this one causes paywall/ad-wall lightbox sometimes with Adblock Plus enabled
-			]
-		},
-		wsj: {
-			url: "*://*.wsj.com/*",
-			js: [
+		]
+	},
+	wsj: {
+		url: "*://*.wsj.com/*",
+		js: [
 			"*://*/*cxense-candy.js", // this one causes a pop up advertisement for every article
-			]
-		},
-		ft: {
-			url: "*://*.ft.com/*",
-		},
-		nyt: {
-			js: [
+		]
+	},
+	ft: {
+		url: "*://*.ft.com/*",
+	},
+	nyt: {
+		js: [
 			"*://*.com/*mtr.js", // this one causes a pop up asking for subscription
-			]
-		},
-		bloomberg: {
-			url: "*://*.bloomberg.com/*",
-			js: [
+		]
+	},
+	bloomberg: {
+		url: "*://*.bloomberg.com/*",
+		js: [
 			"*://*.bwbx.io/s3/javelin/public/javelin/js/pianola/*",
-			]
-		}
-	};
+		]
+	}
+};
 
 // extract all script urls we want to block
 var script_urls = Object.values(sites)
-.map(site => site.js)
-.filter(Array.isArray)
-.reduce((prev, curr) => prev.concat(curr), []);
+                .map(site => site.js)
+                .filter(Array.isArray)
+                .reduce((prev, curr) => prev.concat(curr), []);
 
 // extract all main_frame urls we want to override
 var main_frame_urls = Object.values(sites)
-.map(site => site.url)
-.filter(url => url);
+                    .map(site => site.url)
+                    .filter(url => url);
 
-
-blockJavascripts= function() {
+blockJavascripts = function() {
 	console.log("we are going to block some low energy javascripts");
 
 	return { cancel: true };
